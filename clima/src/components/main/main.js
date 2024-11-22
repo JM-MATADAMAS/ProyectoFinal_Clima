@@ -1,6 +1,6 @@
 // Main.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform, StatusBar } from 'react-native';
 
 const Main = ({ navigation }) => {
   const [city, setCity] = useState('');
@@ -49,7 +49,11 @@ const Main = ({ navigation }) => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <Text style={styles.title}>Consultar Clima</Text>
+    <StatusBar 
+        barStyle="light-content" // Cambia el color del texto a claro
+        backgroundColor="#000000" // Cambia el fondo de la barra de estado
+    />
+      <Text style={styles.title}>ContructAI</Text>
       <TextInput
         style={styles.input}
         placeholder="Ciudad"

@@ -1,6 +1,6 @@
 // Results.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, SafeAreaView, StatusBar } from 'react-native';
 
 // Definición de las tareas y sus condiciones ideales
 const tasks = [
@@ -83,36 +83,42 @@ const Results = ({ route, navigation }) => {
   const { forecast, city } = route.params; // Pronóstico y ciudad enviados desde Main
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Pronóstico del Clima para {city}</Text>
-      {forecast.map((day, index) => (
-        <View key={index} style={styles.dayContainer}>
-          <Text style={styles.date}>{day.date}</Text>
-          <Image source={{ uri: day.icon }} style={styles.icon} />
-          <Text style={styles.condition}>{capitalizeFirstLetter(day.condition)}</Text>
-          <Text style={styles.temperature}>Temperatura: {day.temperature}°C</Text>
-          <View style={styles.tasksContainer}>
-            <Text style={styles.tasksTitle}>Evaluación de Tareas:</Text>
-            {evaluateTasks(day).map((task, idx) => (
-              <View key={idx} style={styles.task}>
-                <Text style={styles.taskName}>{task.name}</Text>
-                <Text style={[styles.taskStatus, { color: task.isOptimal ? 'green' : 'red' }]}>
-                  {task.isOptimal ? 'Óptimo' : 'No Óptimo'}
-                </Text>
-                {!task.isOptimal && (
-                  <Text style={styles.taskPrecautions}>
-                    Precauciones: {task.precautions.join(", ")}
+    <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle="light-content" // Cambia el color del texto a claro
+        backgroundColor="#000000" // Cambia el fondo de la barra de estado
+      />
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>Pronóstico del Clima para {city}</Text>
+        {forecast.map((day, index) => (
+          <View key={index} style={styles.dayContainer}>
+            <Text style={styles.date}>{day.date}</Text>
+            <Image source={{ uri: day.icon }} style={styles.icon} />
+            <Text style={styles.condition}>{capitalizeFirstLetter(day.condition)}</Text>
+            <Text style={styles.temperature}>Temperatura: {day.temperature}°C</Text>
+            <View style={styles.tasksContainer}>
+              <Text style={styles.tasksTitle}>Evaluación de Tareas:</Text>
+              {evaluateTasks(day).map((task, idx) => (
+                <View key={idx} style={styles.task}>
+                  <Text style={styles.taskName}>{task.name}</Text>
+                  <Text style={[styles.taskStatus, { color: task.isOptimal ? 'green' : 'red' }]}>
+                    {task.isOptimal ? 'Óptimo' : 'No Óptimo'}
                   </Text>
-                )}
-              </View>
-            ))}
+                  {!task.isOptimal && (
+                    <Text style={styles.taskPrecautions}>
+                      Precauciones: {task.precautions.join(", ")}
+                    </Text>
+                  )}
+                </View>
+              ))}
+            </View>
           </View>
-        </View>
-      ))}
-      <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-        <Text style={styles.buttonText}>Volver</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        ))}
+        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+          <Text style={styles.buttonText}>Volver</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
