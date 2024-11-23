@@ -53,7 +53,7 @@ const Main = ({ navigation }) => {
         barStyle="light-content" // Cambia el color del texto a claro
         backgroundColor="#000000" // Cambia el fondo de la barra de estado
     />
-      <Text style={styles.title}>ContructAI</Text>
+      <Text style={styles.title}>ConstructAI</Text>
       <TextInput
         style={styles.input}
         placeholder="Ciudad"
